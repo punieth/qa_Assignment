@@ -1,0 +1,24 @@
+package runner;
+
+
+import com.cucumber.listener.Reporter;
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
+import org.junit.AfterClass;
+import org.junit.runner.RunWith;
+
+import java.io.File;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+        plugin = {"pretty", "com.cucumber.listener.ExtentCucumberFormatter:output/report.html"},
+        features = "src/test/resources/features",
+        glue = "definitions",
+        tags = {"@start"})
+public class FeatureRunner {
+    @AfterClass
+    public static void writeExtentReport() {
+        Reporter.loadXMLConfig(new File("configs/extent-config.xml"));
+    }
+
+}
